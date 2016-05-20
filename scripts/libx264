@@ -1,0 +1,70 @@
+#!/bin/bash
+
+__FILE__=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+__DIR__=$(dirname "${__FILE__}")
+. $__DIR__/common.inc
+
+NAME=libx264
+VERSION=last-snapshot
+
+do_download()
+{
+  info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src
+  if ! wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2 -O last_x264.tar.bz2; then
+    error "Failed to download $NAME"
+  fi
+  info "Download complete"
+}
+
+do_unpack()
+{
+  info "Unpack $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src
+  if ! tar xjvf last_x264.tar.bz2; then
+    error "Failed to unpack $NAME"
+  fi
+  info "Unpack complete"
+}
+
+do_configure()
+{
+  info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src x264-snapshot*
+  if ! ./configure --prefix="$BUILD_DIR" --bindir="$BIN_DIR" --enable-static; then
+    error "Failed to configure $NAME"
+  fi
+  info "Configuration complete"
+}
+
+do_compile()
+{
+  info "Compile $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src x264-snapshot*
+  if ! make; then
+    error "Failed to compile $NAME"
+  fi
+  info "Compilation complete"
+}
+
+do_install()
+{
+  info "Install $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src x264-snapshot*
+  if ! make install; then
+    error "Failed to install $NAME"
+  fi
+  info "Installation complete"
+}
+
+do_clean()
+{
+  info "Clean $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src x264-snapshot*
+  if ! make distclean; then
+    error "Failed to clean $NAME"
+  fi
+  info "Clean complete"
+}
+
+main $*

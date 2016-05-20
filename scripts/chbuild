@@ -1,0 +1,123 @@
+#!/bin/bash
+
+__FILE__=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+__DIR__=$(dirname "${__FILE__}")
+. $__DIR__/common.inc
+
+set_build_dir()
+{
+  if [ -z "$1" ]; then
+    error "set_build_dir() require build version argument"
+  fi
+
+  BUILD_DIR=$PRJ_DIR/build/$1
+
+  if [ ! -d "$BUILD_DIR" ]; then
+    info "Build version is invalid. Use 'list' option to display build versions"
+    error "Build directory not found: $BUILD_DIR"
+  fi
+
+  BIN_DIR=$BUILD_DIR/bin
+
+  if [ ! -d "$BIN_DIR" ]; then
+    info "Build binaries directory is missing. Please check that the libraries are compiled"
+    error "Build binaries directory not found: $BIN_DIR"
+  fi
+}
+
+set_bin_symlink_path()
+{
+  if [ -z "$1" ]; then
+    BIN_SYMLINK_PATH=$DEFAULT_BIN_SYMLINK_PATH
+  else
+    BIN_SYMLINK_PATH=$1
+  fi
+
+  if [ ! -d "$BIN_SYMLINK_PATH" ]; then
+    error "Binaries path not found: $BIN_SYMLINK_PATH"
+  fi
+}
+
+create_current_build_link()
+{
+  if [ -h "$BUILD_LINK" ]; then
+    run rm $BUILD_LINK
+  fi
+  run ln -s $BUILD_DIR $BUILD_LINK
+  info "Current build set to $(basename $BUILD_DIR)"
+  info "$BUILD_LINK symbolic link created"
+}
+
+create_bin_symlinks()
+{
+  BIN_FILES=$(ls $BIN_DIR)
+  for BIN_FILE in $BIN_FILES; do
+    if [ -x "$BIN_DIR/$BIN_FILE" ]; then
+      if [ -h "$BIN_SYMLINK_PATH/$BIN_FILE" ]; then
+        run rm $BIN_SYMLINK_PATH/$BIN_FILE
+      fi
+      run ln -s $BIN_DIR/$BIN_FILE $BIN_SYMLINK_PATH/$BIN_FILE
+      info "$BIN_SYMLINK_PATH/$BIN_FILE symbolic link created"
+    fi
+  done
+}
+
+list_build_versions()
+{
+  if [ ! -d "$PRJ_DIR/build" ]; then
+    echo "No build found."
+    exit 0
+  fi
+
+  # Get current build version
+  if [ -h "$BUILD_LINK" ]; then
+    RLINK=$(readlink $BUILD_LINK)
+    if [ -d "$RLINK" ]; then
+      CURRENT=$(basename $RLINK)
+    fi
+  fi
+
+  BUILD_VERSIONS=$(ls $PRJ_DIR/build)
+  for V in $BUILD_VERSIONS; do
+    if [ "current" == "$V" ]; then
+      continue
+    fi
+    if [ "$CURRENT" == "$V" ]; then
+      echo " * $V"
+    else
+      echo "   $V"
+    fi
+  done
+}
+
+change_build_version()
+{
+  set_build_dir $1
+  set_bin_symlink_path $2
+  create_current_build_link
+  create_bin_symlinks
+}
+
+usage()
+{
+  SCRIPT_NAME=$(basename "$__FILE__")
+  printf "Usage: $SCRIPT_NAME <BUILD_VERSION|list> [BIN_SYMLINK_PATH]\n\n"
+  printf "OPTIONS :\n"
+  printf "   BUILD_VERSION      the build version to set as current\n"
+  printf "   list               list available build versions\n"
+  printf "   BIN_SYMLINK_PATH   optional path where to create binary symlinks\n"
+  printf "                      default path is $DEFAULT_BIN_SYMLINK_PATH\n"
+  exit 3
+}
+
+case "$1" in
+  "")
+    usage
+  ;;
+  list)
+    list_build_versions
+  ;;
+  *)
+    change_build_version $*
+  ;;
+esac

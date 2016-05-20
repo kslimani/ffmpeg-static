@@ -1,0 +1,74 @@
+#!/bin/bash
+
+__FILE__=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+__DIR__=$(dirname "${__FILE__}")
+. $__DIR__/common.inc
+
+less_log()
+{
+  if [ -z "$1" ]; then
+    # Default build version is "today" date
+    # Otherwise fallback to "current"
+    if [ ! -d "$LOG_DIR" ]; then
+      LOG_DIR=$BUILD_LINK/log
+    fi
+  else
+    LOG_DIR=$PRJ_DIR/build/$1/log
+  fi
+
+  if [ ! -d "$LOG_DIR" ]; then
+    echo "Log directory not found. Use -h option to display help."
+    exit 1
+  fi
+
+  # Check if custom filename
+  if [ -z "$2" ]; then
+    LOG_FILE=$BUILD_LOG_FILENAME
+  else
+    LOG_FILE=$2
+  fi
+
+  # Check if log file listing requested
+  if [ "$LOG_FILE" == "list" ]; then
+    echo "Build '$1' log file listing :"
+    FILES=$(ls $LOG_DIR/)
+    for FILE in $FILES; do
+      echo "   $FILE"
+    done
+    exit 0
+  fi
+
+  if [ ! -f "$LOG_DIR/$LOG_FILE" ]; then
+    echo "Log file not found. Use -h option to display help."
+    exit 1
+  fi
+
+  # Use 'less' command to display build log file
+  # -r option preserve colors
+  run less -r $LOG_DIR/$LOG_FILE
+}
+
+usage()
+{
+  SCRIPT_NAME=$(basename "$__FILE__")
+  printf "Usage: $SCRIPT_NAME [BUILD_VERSION|list] [LOG_FILENAME|list]\n\n"
+  printf "OPTIONS :\n"
+  printf "   BUILD_VERSION   the build version to show log\n"
+  printf "   list            list available build versions\n"
+  printf "   LOG_FILENAME    optional log filename when using BUILD_VERSION\n"
+  printf "                   default filename is $BUILD_LOG_FILENAME\n"
+  printf "                   use 'list' to display log file list\n"
+  exit 3
+}
+
+case "$1" in
+  "-h")
+    usage
+  ;;
+  list)
+    $__DIR__/chbuild list
+  ;;
+  *)
+    less_log $*
+  ;;
+esac
