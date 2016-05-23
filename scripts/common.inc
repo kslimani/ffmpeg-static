@@ -10,7 +10,14 @@ if [ -z "$PRJ_DIR" ]; then
   PRJ_DIR=$(cd $__DIR__/.. && pwd)
 fi
 
-BUILD_DIR=$PRJ_DIR/build/$__DATE__
+# Build version can be set with 'FFBUILD_VERSION' environmental variable
+if [ -z "$FFBUILD_VERSION" ]; then
+  BUILD_VERSION=$__DATE__
+else
+  BUILD_VERSION=$FFBUILD_VERSION
+fi
+
+BUILD_DIR=$PRJ_DIR/build/$BUILD_VERSION
 BUILD_LINK=$PRJ_DIR/build/current
 SRC_DIR=$BUILD_DIR/src
 LOG_DIR=$BUILD_DIR/log

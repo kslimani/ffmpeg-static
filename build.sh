@@ -40,7 +40,7 @@ all()
     duccic $LIB_SCRIPT
   done
 
-  run_script chbuild $__DATE__
+  run_script chbuild $BUILD_VERSION
 }
 
 usage()
