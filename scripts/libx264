@@ -5,13 +5,14 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libx264
-VERSION=last-snapshot
+VERSION=last-stable
+SNAPSHOT_FILE=last_stable_x264.tar.bz2
 
 do_download()
 {
   info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2 -O last_x264.tar.bz2; then
+  if ! wget http://download.videolan.org/pub/x264/snapshots/$SNAPSHOT_FILE -O $SNAPSHOT_FILE; then
     error "Failed to download $NAME"
   fi
   info "Download complete"
@@ -21,7 +22,7 @@ do_unpack()
 {
   info "Unpack $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! tar xjvf last_x264.tar.bz2; then
+  if ! tar xjvf $SNAPSHOT_FILE; then
     error "Failed to unpack $NAME"
   fi
   info "Unpack complete"
