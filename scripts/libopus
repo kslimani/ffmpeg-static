@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libopus
-VERSION=1.1.3
+VERSION=1.1.4
 
 do_download()
 {

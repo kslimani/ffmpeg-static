@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libvpx
-VERSION=1.6.0
+VERSION=1.6.1
 
 do_download()
 {
