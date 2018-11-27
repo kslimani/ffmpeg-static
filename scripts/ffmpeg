@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=ffmpeg
-VERSION=3.3.2
+VERSION=4.1
 
 do_download()
 {
@@ -36,6 +36,7 @@ do_configure()
     --pkg-config-flags="--static" \
     --extra-cflags="-I$BUILD_DIR/include" \
     --extra-ldflags="-L$BUILD_DIR/lib" \
+    --extra-libs="-lpthread -lm" \
     --bindir="$BIN_DIR" \
     --enable-gpl \
     --enable-libass \

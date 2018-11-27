@@ -5,13 +5,13 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libmp3lame
-VERSION=3.99.5
+VERSION=3.100
 
 do_download()
 {
   info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! wget http://downloads.sourceforge.net/project/lame/lame/3.99/lame-${VERSION}.tar.gz -O lame-${VERSION}.tar.gz; then
+  if ! wget http://downloads.sourceforge.net/project/lame/lame/3.100/lame-${VERSION}.tar.gz -O lame-${VERSION}.tar.gz; then
     error "Failed to download $NAME"
   fi
   info "Download complete"

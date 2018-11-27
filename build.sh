@@ -35,7 +35,7 @@ all()
   install_dependencies
 
   # Build order matters
-  LIB_SCRIPTS="yasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx ffmpeg"
+  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx ffmpeg"
   for LIB_SCRIPT in $LIB_SCRIPTS; do
     duccic $LIB_SCRIPT
   done
@@ -50,7 +50,7 @@ usage()
   printf "OPTIONS :\n"
   printf "   all      download, compile and install all libraries\n"
   printf "   setup    install dependencies\n"
-  printf "   yasm     download, compile and install yasm\n"
+  printf "   nasm     download, compile and install nasm\n"
   printf "   x264     download, compile and install libx264\n"
   printf "   x265     download, compile and install libx265\n"
   printf "   aac      download, compile and install libfdk-aac\n"
@@ -68,8 +68,8 @@ case "$1" in
   setup)
     install_dependencies
   ;;
-  yasm)
-    duccic yasm
+  nasm)
+    duccic nasm
   ;;
   x264)
     duccic libx264

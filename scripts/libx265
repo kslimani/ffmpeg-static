@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libx265
-VERSION=2.4
+VERSION=2.9
 
 do_download()
 {
@@ -40,8 +40,11 @@ do_configure()
 do_compile()
 {
   info "Compile $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  if [ -f "/proc/cpuinfo" ]; then
+    COMPILE_ARGS="-j$(grep -c ^processor /proc/cpuinfo)"
+  fi
   cd_src x265_${VERSION}/build/linux
-  if ! make; then
+  if ! make $COMPILE_ARGS; then
     error "Failed to compile $NAME"
   fi
   info "Compilation complete"

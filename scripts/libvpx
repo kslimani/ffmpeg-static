@@ -5,13 +5,13 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libvpx
-VERSION=1.6.1
+VERSION=1.7.0
 
 do_download()
 {
   info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! wget http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-${VERSION}.tar.bz2 -O libvpx-${VERSION}.tar.bz2; then
+  if ! wget https://github.com/webmproject/libvpx/archive/v${VERSION}.tar.gz -O libvpx-${VERSION}.tar.gz; then
     error "Failed to download $NAME"
   fi
   info "Download complete"
@@ -21,7 +21,7 @@ do_unpack()
 {
   info "Unpack $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! tar xjvf libvpx-${VERSION}.tar.bz2; then
+  if ! tar xzvf libvpx-${VERSION}.tar.gz; then
     error "Failed to unpack $NAME"
   fi
   info "Unpack complete"
