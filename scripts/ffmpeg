@@ -36,6 +36,7 @@ do_configure()
     --pkg-config-flags="--static" \
     --extra-cflags="-I$BUILD_DIR/include" \
     --extra-ldflags="-L$BUILD_DIR/lib" \
+    --extra-libs="-lpthread -lm" \
     --bindir="$BIN_DIR" \
     --enable-gpl \
     --enable-libass \
