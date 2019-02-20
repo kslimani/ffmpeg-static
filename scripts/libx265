@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libx265
-VERSION=2.9
+VERSION=3.0
 
 do_download()
 {
