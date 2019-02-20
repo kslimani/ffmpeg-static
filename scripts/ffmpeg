@@ -39,6 +39,7 @@ do_configure()
     --extra-libs="-lpthread -lm" \
     --bindir="$BIN_DIR" \
     --enable-gpl \
+    --enable-openssl \
     --enable-libass \
     --enable-libfdk-aac \
     --enable-libfreetype \
