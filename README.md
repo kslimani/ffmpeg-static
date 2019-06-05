@@ -9,7 +9,7 @@ Compilation is based on [FFmpeg wiki compilation guide](https://trac.ffmpeg.org/
 FFmpeg is compiled with the following libraries :
 
 * [nasm](https://www.nasm.us/)
-* [libx264](http://git.videolan.org/?p=x264.git;a=summary)
+* [libx264](https://code.videolan.org/videolan/x264)
 * [libx265](https://bitbucket.org/multicoreware/x265/wiki/Home)
 * [libfdk-aac](https://github.com/mstorsjo/fdk-aac)
 * [libmp3lame](http://lame.sourceforge.net)
