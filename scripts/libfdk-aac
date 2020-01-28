@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libfdk-aac
-VERSION=2.0.0
+VERSION=2.0.1
 
 do_download()
 {
