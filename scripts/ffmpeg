@@ -50,6 +50,7 @@ do_configure()
     --enable-libvpx \
     --enable-libx264 \
     --enable-libx265 \
+    --enable-libzvbi \
     --enable-nonfree
   then
     error "Failed to configure $NAME"
