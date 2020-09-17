@@ -46,18 +46,21 @@ all()
 usage()
 {
   SCRIPT_NAME=$(basename "$__FILE__")
-  printf "Usage: $SCRIPT_NAME <OPTION> \n\n"
-  printf "OPTIONS :\n"
-  printf "   all      download, compile and install all libraries\n"
-  printf "   setup    install dependencies\n"
-  printf "   nasm     download, compile and install nasm\n"
-  printf "   x264     download, compile and install libx264\n"
-  printf "   x265     download, compile and install libx265\n"
-  printf "   aac      download, compile and install libfdk-aac\n"
-  printf "   mp3      download, compile and install libmp3lame\n"
-  printf "   opus     download, compile and install libopus\n"
-  printf "   vpx      download, compile and install libvpx\n"
-  printf "   ffmpeg   download, compile and install FFmpeg\n"
+  cat <<EOF
+Usage: $SCRIPT_NAME <OPTION>
+
+OPTIONS :
+   all      download, compile and install all libraries
+   setup    install dependencies
+   nasm     download, compile and install nasm
+   x264     download, compile and install libx264
+   x265     download, compile and install libx265
+   aac      download, compile and install libfdk-aac
+   mp3      download, compile and install libmp3lame
+   opus     download, compile and install libopus
+   vpx      download, compile and install libvpx
+   ffmpeg   download, compile and install FFmpeg
+EOF
   exit 3
 }
 

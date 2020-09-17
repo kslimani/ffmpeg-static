@@ -101,12 +101,15 @@ change_build_version()
 usage()
 {
   SCRIPT_NAME=$(basename "$__FILE__")
-  printf "Usage: $SCRIPT_NAME <BUILD_VERSION|list> [BIN_SYMLINK_PATH]\n\n"
-  printf "OPTIONS :\n"
-  printf "   BUILD_VERSION      the build version to set as current\n"
-  printf "   list               list available build versions\n"
-  printf "   BIN_SYMLINK_PATH   optional path where to create binary symlinks\n"
-  printf "                      default path is $DEFAULT_BIN_SYMLINK_PATH\n"
+  cat <<EOF
+Usage: $SCRIPT_NAME <BUILD_VERSION|list> [BIN_SYMLINK_PATH]
+
+OPTIONS :
+   BUILD_VERSION      the build version to set as current
+   list               list available build versions
+   BIN_SYMLINK_PATH   optional path where to create binary symlinks
+                      default path is $DEFAULT_BIN_SYMLINK_PATH
+EOF
   exit 3
 }
 

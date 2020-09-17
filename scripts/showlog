@@ -51,13 +51,16 @@ less_log()
 usage()
 {
   SCRIPT_NAME=$(basename "$__FILE__")
-  printf "Usage: $SCRIPT_NAME [BUILD_VERSION|list] [LOG_FILENAME|list]\n\n"
-  printf "OPTIONS :\n"
-  printf "   BUILD_VERSION   the build version to show log\n"
-  printf "   list            list available build versions\n"
-  printf "   LOG_FILENAME    optional log filename when using BUILD_VERSION\n"
-  printf "                   default filename is $BUILD_LOG_FILENAME\n"
-  printf "                   use 'list' to display log file list\n"
+  cat <<EOF
+Usage: $SCRIPT_NAME [BUILD_VERSION|list] [LOG_FILENAME|list]
+
+OPTIONS :
+   BUILD_VERSION   the build version to show log
+   list            list available build versions
+   LOG_FILENAME    optional log filename when using BUILD_VERSION
+                   default filename is $BUILD_LOG_FILENAME
+                   use 'list' to display log file list
+EOF
   exit 3
 }
 
