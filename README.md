@@ -2,7 +2,7 @@
 
 Bash script collection to compile statically [FFmpeg](https://ffmpeg.org/) and install it using symbolic links.
 
-Target OS is Linux Debian.
+Target OS is Linux Debian/Ubuntu.
 
 Compilation is based on [FFmpeg wiki compilation guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu).
 
@@ -16,3 +16,4 @@ FFmpeg is compiled with the following libraries :
 * [libopus](http://www.opus-codec.org/downloads/)
 * [libvpx](https://github.com/webmproject/libvpx/)
 * [libsrt](https://github.com/Haivision/srt)
+* [libsvtav1](https://github.com/AOMediaCodec/SVT-AV1)
