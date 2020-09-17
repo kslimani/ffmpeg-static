@@ -1,0 +1,73 @@
+#!/bin/bash
+
+__FILE__=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+__DIR__=$(dirname "${__FILE__}")
+. $__DIR__/common.inc
+
+NAME=libsvtav1
+VERSION=0.8.5
+
+do_download()
+{
+  info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src
+  if ! wget https://github.com/AOMediaCodec/SVT-AV1/archive/v${VERSION}.tar.gz -O libsvtav1-${VERSION}.tar.gz; then
+    error "Failed to download $NAME"
+  fi
+  info "Download complete"
+}
+
+do_unpack()
+{
+  info "Unpack $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src
+  if ! tar xzvf libsvtav1-${VERSION}.tar.gz; then
+    error "Failed to unpack $NAME"
+  fi
+  info "Unpack complete"
+}
+
+do_configure()
+{
+  info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src SVT-AV1-${VERSION}/Build
+  if ! cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=OFF; then
+    error "Failed to configure $NAME"
+  fi
+  info "Configuration complete"
+}
+
+do_compile()
+{
+  info "Compile $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  if [ -f "/proc/cpuinfo" ]; then
+    COMPILE_ARGS="-j$(grep -c ^processor /proc/cpuinfo)"
+  fi
+  cd_src SVT-AV1-${VERSION}/Build
+  if ! make $COMPILE_ARGS; then
+    error "Failed to compile $NAME"
+  fi
+  info "Compilation complete"
+}
+
+do_install()
+{
+  info "Install $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src SVT-AV1-${VERSION}/Build
+  if ! make install; then
+    error "Failed to install $NAME"
+  fi
+  info "Installation complete"
+}
+
+do_clean()
+{
+  info "Clean $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src SVT-AV1-${VERSION}/Build
+  if ! make clean; then
+    error "Failed to clean $NAME"
+  fi
+  info "Clean complete"
+}
+
+main $*
