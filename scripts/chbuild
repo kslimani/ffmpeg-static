@@ -40,7 +40,7 @@ set_bin_symlink_path()
 
 create_current_build_link()
 {
-  if [ -h "$BUILD_LINK" ]; then
+  if [ -L "$BUILD_LINK" ]; then
     run rm $BUILD_LINK
   fi
   run ln -s $BUILD_DIR $BUILD_LINK
@@ -53,7 +53,7 @@ create_bin_symlinks()
   BIN_FILES=$(ls $BIN_DIR)
   for BIN_FILE in $BIN_FILES; do
     if [ -x "$BIN_DIR/$BIN_FILE" ]; then
-      if [ -h "$BIN_SYMLINK_PATH/$BIN_FILE" ]; then
+      if [ -L "$BIN_SYMLINK_PATH/$BIN_FILE" ]; then
         run rm $BIN_SYMLINK_PATH/$BIN_FILE
       fi
       run ln -s $BIN_DIR/$BIN_FILE $BIN_SYMLINK_PATH/$BIN_FILE
@@ -70,7 +70,7 @@ list_build_versions()
   fi
 
   # Get current build version
-  if [ -h "$BUILD_LINK" ]; then
+  if [ -L "$BUILD_LINK" ]; then
     RLINK=$(readlink $BUILD_LINK)
     if [ -d "$RLINK" ]; then
       CURRENT=$(basename $RLINK)
