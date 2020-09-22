@@ -8,7 +8,7 @@ install_dependencies()
 {
   info "Install dependencies ..."
   run apt-get update
-  run apt-get -y install autoconf automake build-essential libass-dev libfreetype6-dev \
+  run apt-get -y install autoconf automake build-essential tcl libass-dev libfreetype6-dev \
     libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
     libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev cmake mercurial libnuma-dev openssl libssl-dev libzvbi-dev
   info "Install dependencies complete"
@@ -35,7 +35,7 @@ all()
   install_dependencies
 
   # Build order matters
-  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx ffmpeg"
+  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt ffmpeg"
   for LIB_SCRIPT in $LIB_SCRIPTS; do
     duccic $LIB_SCRIPT
   done
@@ -59,6 +59,7 @@ OPTIONS :
    mp3      download, compile and install libmp3lame
    opus     download, compile and install libopus
    vpx      download, compile and install libvpx
+   srt      download, compile and install libsrt
    ffmpeg   download, compile and install FFmpeg
 EOF
   exit 3
@@ -91,6 +92,9 @@ case "$1" in
   ;;
   vpx)
     duccic libvpx
+  ;;
+  srt)
+    duccic libsrt
   ;;
   ffmpeg)
     duccic ffmpeg
