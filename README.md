@@ -15,3 +15,4 @@ FFmpeg is compiled with the following libraries :
 * [libmp3lame](http://lame.sourceforge.net)
 * [libopus](http://www.opus-codec.org/downloads/)
 * [libvpx](https://github.com/webmproject/libvpx/)
+* [libsrt](https://github.com/Haivision/srt)
