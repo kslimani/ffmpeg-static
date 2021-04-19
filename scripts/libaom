@@ -4,14 +4,14 @@ __FILE__=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}
 __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
-NAME=libsvtav1
-VERSION=0.8.5
+NAME=libaom
+VERSION=3.0.0
 
 do_download()
 {
   info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! wget https://github.com/AOMediaCodec/SVT-AV1/archive/v${VERSION}.tar.gz -O libsvtav1-${VERSION}.tar.gz; then
+  if ! wget https://aomedia.googlesource.com/aom/+archive/refs/tags/v${VERSION}.tar.gz -O libaom-${VERSION}.tar.gz; then
     error "Failed to download $NAME"
   fi
   info "Download complete"
@@ -21,7 +21,10 @@ do_unpack()
 {
   info "Unpack $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src
-  if ! tar xzvf libsvtav1-${VERSION}.tar.gz; then
+  if ! mkdir -p libaom-${VERSION}; then
+    error "Failed to create libaom-${VERSION} directory"
+  fi
+  if ! tar xzvf libaom-${VERSION}.tar.gz --directory libaom-${VERSION}; then
     error "Failed to unpack $NAME"
   fi
   info "Unpack complete"
@@ -30,8 +33,8 @@ do_unpack()
 do_configure()
 {
   info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
-  cd_src SVT-AV1-${VERSION}/Build
-  if ! cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=OFF; then
+  cd_src libaom-${VERSION}
+  if ! cmake ./aom -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=OFF; then
     error "Failed to configure $NAME"
   fi
   info "Configuration complete"
@@ -43,7 +46,7 @@ do_compile()
   if [ -f "/proc/cpuinfo" ]; then
     COMPILE_ARGS="-j$(grep -c ^processor /proc/cpuinfo)"
   fi
-  cd_src SVT-AV1-${VERSION}/Build
+  cd_src libaom-${VERSION}
   if ! make $COMPILE_ARGS; then
     error "Failed to compile $NAME"
   fi
@@ -53,7 +56,7 @@ do_compile()
 do_install()
 {
   info "Install $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
-  cd_src SVT-AV1-${VERSION}/Build
+  cd_src libaom-${VERSION}
   if ! make install; then
     error "Failed to install $NAME"
   fi
@@ -63,7 +66,7 @@ do_install()
 do_clean()
 {
   info "Clean $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
-  cd_src SVT-AV1-${VERSION}/Build
+  cd_src libaom-${VERSION}
   if ! make clean; then
     error "Failed to clean $NAME"
   fi

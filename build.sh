@@ -35,7 +35,7 @@ all()
   install_dependencies
 
   # Build order matters
-  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libsvtav1 ffmpeg"
+  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libaom ffmpeg"
   for LIB_SCRIPT in $LIB_SCRIPTS; do
     duccic $LIB_SCRIPT
   done
@@ -60,7 +60,7 @@ OPTIONS :
    opus     download, compile and install libopus
    vpx      download, compile and install libvpx
    srt      download, compile and install libsrt
-   av1      download, compile and install libsvtav1
+   aom      download, compile and install libaom
    ffmpeg   download, compile and install FFmpeg
 EOF
   exit 3
@@ -96,8 +96,8 @@ case "$1" in
   ;;
   srt)
     duccic libsrt
-  av1)
-    duccic libsvtav1
+  aom)
+    duccic libaom
   ;;
   ffmpeg)
     duccic ffmpeg

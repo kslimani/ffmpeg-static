@@ -51,7 +51,7 @@ do_configure()
     --enable-libx264 \
     --enable-libx265 \
     --enable-libsrt \
-    --enable-libsvtav1 \
+    --enable-libaom \
     --enable-libzvbi \
     --enable-nonfree
   then
