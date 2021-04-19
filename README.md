@@ -16,4 +16,4 @@ FFmpeg is compiled with the following libraries :
 * [libopus](http://www.opus-codec.org/downloads/)
 * [libvpx](https://github.com/webmproject/libvpx/)
 * [libsrt](https://github.com/Haivision/srt)
-* [libsvtav1](https://github.com/AOMediaCodec/SVT-AV1)
+* [libaom](https://aomedia.googlesource.com/aom/)
