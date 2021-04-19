@@ -96,6 +96,7 @@ case "$1" in
   ;;
   srt)
     duccic libsrt
+  ;;
   aom)
     duccic libaom
   ;;
