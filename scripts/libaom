@@ -34,7 +34,7 @@ do_configure()
 {
   info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src libaom-${VERSION}
-  if ! mkdir -p libaom-${VERSION}/aom_build; then
+  if ! mkdir -p aom_build; then
     error "Failed to create aom_build directory"
   fi
   cd_src libaom-${VERSION}/aom_build
