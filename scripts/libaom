@@ -34,7 +34,11 @@ do_configure()
 {
   info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src libaom-${VERSION}
-  if ! cmake ./aom -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=OFF; then
+  if ! mkdir -p libaom-${VERSION}/aom_build; then
+    error "Failed to create aom_build directory"
+  fi
+  cd_src libaom-${VERSION}/aom_build
+  if ! cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=0; then
     error "Failed to configure $NAME"
   fi
   info "Configuration complete"
@@ -46,7 +50,7 @@ do_compile()
   if [ -f "/proc/cpuinfo" ]; then
     COMPILE_ARGS="-j$(grep -c ^processor /proc/cpuinfo)"
   fi
-  cd_src libaom-${VERSION}
+  cd_src libaom-${VERSION}/aom_build
   if ! make $COMPILE_ARGS; then
     error "Failed to compile $NAME"
   fi
@@ -56,7 +60,7 @@ do_compile()
 do_install()
 {
   info "Install $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
-  cd_src libaom-${VERSION}
+  cd_src libaom-${VERSION}/aom_build
   if ! make install; then
     error "Failed to install $NAME"
   fi
@@ -66,7 +70,7 @@ do_install()
 do_clean()
 {
   info "Clean $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
-  cd_src libaom-${VERSION}
+  cd_src libaom-${VERSION}/aom_build
   if ! make clean; then
     error "Failed to clean $NAME"
   fi
