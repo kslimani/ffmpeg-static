@@ -38,7 +38,10 @@ do_configure()
     error "Failed to create aom_build directory"
   fi
   cd_src libaom-${VERSION}/aom_build
-  if ! cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=0; then
+  # TODO: findout why compile fail with -DCONFIG_TUNE_VMAF=1
+  # -DCMAKE_PREFIX_PATH="$BUILD_DIR" : pass comfigure but fail compile
+  # -DCMAKE_INSTALL_LIBDIR="lib" -DCMAKE_INSTALL_INCLUDEDIR="include" : no effets
+  if ! cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" -DBUILD_SHARED_LIBS=0 -DENABLE_DOCS=0 -DENABLE_TESTS=0; then
     error "Failed to configure $NAME"
   fi
   info "Configuration complete"
@@ -70,8 +73,8 @@ do_install()
 do_clean()
 {
   info "Clean $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
-  cd_src libaom-${VERSION}/aom_build
-  if ! make clean; then
+  cd_src libaom-${VERSION}
+  if ! rm -rf ./aom_build; then
     error "Failed to clean $NAME"
   fi
   info "Clean complete"
