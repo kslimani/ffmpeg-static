@@ -96,6 +96,7 @@ change_build_version()
   set_bin_symlink_path $2
   create_current_build_link
   create_bin_symlinks
+  $__DIR__/libvmaf link "$BUILD_DIR"
 }
 
 usage()
