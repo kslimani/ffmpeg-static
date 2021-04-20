@@ -10,7 +10,9 @@ install_dependencies()
   run apt-get update
   run apt-get -y install autoconf automake build-essential tcl libass-dev libfreetype6-dev \
     libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
-    libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev cmake mercurial libnuma-dev openssl libssl-dev libzvbi-dev
+    libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev cmake mercurial libnuma-dev openssl libssl-dev libzvbi-dev \
+    python3-pip ninja-build
+  run pip3 install meson
   info "Install dependencies complete"
 }
 
@@ -35,7 +37,7 @@ all()
   install_dependencies
 
   # Build order matters
-  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libaom ffmpeg"
+  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libvmaf libaom ffmpeg"
   for LIB_SCRIPT in $LIB_SCRIPTS; do
     duccic $LIB_SCRIPT
   done
@@ -60,6 +62,7 @@ OPTIONS :
    opus     download, compile and install libopus
    vpx      download, compile and install libvpx
    srt      download, compile and install libsrt
+   vmaf     download, compile and install libvmaf
    aom      download, compile and install libaom
    ffmpeg   download, compile and install FFmpeg
 EOF
@@ -96,6 +99,9 @@ case "$1" in
   ;;
   srt)
     duccic libsrt
+  ;;
+  vmaf)
+    duccic libvmaf
   ;;
   aom)
     duccic libaom

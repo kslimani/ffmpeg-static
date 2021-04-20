@@ -32,6 +32,7 @@ do_configure()
   info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src ffmpeg-${VERSION}
   if ! PKG_CONFIG_PATH="$BUILD_DIR/lib/pkgconfig" ./configure \
+    --ld="g++" \
     --prefix="$BUILD_DIR" \
     --pkg-config-flags="--static" \
     --extra-cflags="-I$BUILD_DIR/include" \
@@ -51,6 +52,7 @@ do_configure()
     --enable-libx264 \
     --enable-libx265 \
     --enable-libsrt \
+    --enable-libvmaf \
     --enable-libaom \
     --enable-libzvbi \
     --enable-nonfree
