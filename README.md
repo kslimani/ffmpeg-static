@@ -6,7 +6,7 @@ Target OS is Linux Debian/Ubuntu.
 
 Compilation is based on [FFmpeg wiki compilation guide](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu).
 
-FFmpeg is compiled with the following libraries :
+[FFmpeg](https://github.com/FFmpeg/FFmpeg) is compiled with the following libraries :
 
 * [nasm](https://www.nasm.us/)
 * [libx264](https://code.videolan.org/videolan/x264)
