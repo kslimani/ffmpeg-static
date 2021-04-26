@@ -35,7 +35,7 @@ do_configure()
 {
   info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
   cd_src vmaf-${VERSION}/libvmaf
-  if ! meson build --default-library=static --buildtype=release --prefix="$BUILD_DIR" --libdir=lib; then
+  if ! meson build -Denable_tests=false -Denable_docs=false --default-library=static --buildtype=release --prefix="$BUILD_DIR" --libdir=lib; then
     error "Failed to configure $NAME"
   fi
   info "Configuration complete"
