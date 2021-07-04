@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libsrt
-VERSION=1.4.2
+VERSION=1.4.3
 
 do_download()
 {
