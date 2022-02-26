@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libvmaf
-VERSION=2.2.0
+VERSION=2.3.0
 
 # FFmpeg "model_path" default value is "/usr/local/share/model/vmaf_v0.6.1.pkl"
 # See also https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_libvmaf.c
