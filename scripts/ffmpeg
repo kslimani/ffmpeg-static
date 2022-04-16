@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=ffmpeg
-VERSION=5.0
+VERSION=5.0.1
 
 do_download()
 {
