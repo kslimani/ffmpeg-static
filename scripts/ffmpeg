@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=ffmpeg
-VERSION=5.0.1
+VERSION=5.1
 
 do_download()
 {
@@ -54,6 +54,7 @@ do_configure()
     --enable-libsrt \
     --enable-libvmaf \
     --enable-libaom \
+    --enable-libdav1d \
     --enable-libzvbi \
     --enable-nonfree
   then

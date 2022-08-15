@@ -37,7 +37,7 @@ all()
   install_dependencies
 
   # Build order matters
-  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libvmaf libaom ffmpeg"
+  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libvmaf libaom libdav1d ffmpeg"
   for LIB_SCRIPT in $LIB_SCRIPTS; do
     duccic $LIB_SCRIPT
   done
@@ -64,6 +64,7 @@ OPTIONS :
    srt      download, compile and install libsrt
    vmaf     download, compile and install libvmaf
    aom      download, compile and install libaom
+   dav1d    download, compile and install libdav1d
    ffmpeg   download, compile and install FFmpeg
 EOF
   exit 3
@@ -105,6 +106,9 @@ case "$1" in
   ;;
   aom)
     duccic libaom
+  ;;
+  dav1d)
+    duccic libdav1d
   ;;
   ffmpeg)
     duccic ffmpeg

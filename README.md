@@ -18,3 +18,4 @@ Compilation is based on [FFmpeg wiki compilation guide](https://trac.ffmpeg.org/
 * [libsrt](https://github.com/Haivision/srt)
 * [libvmaf](https://github.com/Netflix/vmaf)
 * [libaom](https://aomedia.googlesource.com/aom/)
+* [libdav1d](https://code.videolan.org/videolan/dav1d/)
