@@ -54,6 +54,7 @@ do_configure()
     --enable-libsrt \
     --enable-libvmaf \
     --enable-libaom \
+    --enable-libdav1d \
     --enable-libzvbi \
     --enable-nonfree
   then

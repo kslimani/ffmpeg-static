@@ -1,0 +1,75 @@
+#!/bin/bash
+
+__FILE__=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+__DIR__=$(dirname "${__FILE__}")
+. $__DIR__/common.inc
+
+NAME=libdav1d
+VERSION=1.0.0
+
+do_download()
+{
+  info "Download $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src
+  if ! wget https://code.videolan.org/videolan/dav1d/-/archive/${VERSION}/dav1d-${VERSION}.tar.bz2 -O dav1d-${VERSION}.tar.bz2; then
+    error "Failed to download $NAME"
+  fi
+  info "Download complete"
+}
+
+do_unpack()
+{
+  info "Unpack $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src
+  if ! tar xjvf dav1d-${VERSION}.tar.bz2; then
+    error "Failed to unpack $NAME"
+  fi
+  info "Unpack complete"
+}
+
+do_configure()
+{
+  info "Configure $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src dav1d-${VERSION}
+  if ! mkdir -p build; then
+    error "Failed to create build directory"
+  fi
+  cd_src dav1d-${VERSION}/build
+  if ! meson setup -Denable_tools=false -Denable_tests=false --default-library=static .. --prefix "$BUILD_DIR" --libdir="$BUILD_DIR/lib"; then
+    error "Failed to configure $NAME"
+  fi
+  info "Configuration complete"
+}
+
+do_compile()
+{
+  info "Compile $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src dav1d-${VERSION}/build
+  if ! ninja; then
+    error "Failed to compile $NAME"
+  fi
+  info "Compilation complete"
+}
+
+do_install()
+{
+  info "Install $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src dav1d-${VERSION}/build
+  # Note: include/vcs_version.h generation fatal error can be safely ignored
+  if ! ninja install; then
+    error "Failed to install $NAME"
+  fi
+  info "Installation complete"
+}
+
+do_clean()
+{
+  info "Clean $NAME [ ${C_RUN}${VERSION}${C_INFO} ] ..."
+  cd_src dav1d-${VERSION}
+  if ! rm -rf ./build; then
+    error "Failed to clean $NAME"
+  fi
+  info "Clean complete"
+}
+
+main $*
