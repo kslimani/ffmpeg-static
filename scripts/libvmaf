@@ -9,6 +9,7 @@ VERSION=2.3.1
 
 # FFmpeg "model_path" default value is "/usr/local/share/model/vmaf_v0.6.1.pkl"
 # See also https://github.com/FFmpeg/FFmpeg/blob/master/libavfilter/vf_libvmaf.c
+# Also libaom default VMAF model is "/usr/local/share/model/vmaf_v0.6.1.json"
 AVOPTION_LIBVMAF_MODEL_PATH=/usr/local/share/model
 
 do_download()
