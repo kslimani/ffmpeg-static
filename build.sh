@@ -31,18 +31,23 @@ duccic()
   done
 }
 
+setup_build_version()
+{
+  run_script chbuild $BUILD_VERSION
+}
+
 all()
 {
   log_to_file $BUILD_LOG_FILENAME
   install_dependencies
 
   # Build order matters
-  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt libvmaf libaom libdav1d ffmpeg"
+  LIB_SCRIPTS="nasm libx264 libx265 libfdk-aac libmp3lame libopus libvpx libsrt librist libvmaf libaom libdav1d ffmpeg"
   for LIB_SCRIPT in $LIB_SCRIPTS; do
     duccic $LIB_SCRIPT
   done
 
-  run_script chbuild $BUILD_VERSION
+  setup_build_version
 }
 
 usage()
@@ -52,7 +57,7 @@ usage()
 Usage: $SCRIPT_NAME <OPTION>
 
 OPTIONS :
-   all      download, compile and install all libraries
+   all      build FFmpeg with all libraries
    setup    install dependencies
    nasm     download, compile and install nasm
    x264     download, compile and install libx264
@@ -62,10 +67,12 @@ OPTIONS :
    opus     download, compile and install libopus
    vpx      download, compile and install libvpx
    srt      download, compile and install libsrt
+   rist     download, compile and install librist
    vmaf     download, compile and install libvmaf
    aom      download, compile and install libaom
    dav1d    download, compile and install libdav1d
    ffmpeg   download, compile and install FFmpeg
+   chbuild  set current build version
 EOF
   exit 3
 }
@@ -101,6 +108,9 @@ case "$1" in
   srt)
     duccic libsrt
   ;;
+  rist)
+    duccic librist
+  ;;
   vmaf)
     duccic libvmaf
   ;;
@@ -112,6 +122,9 @@ case "$1" in
   ;;
   ffmpeg)
     duccic ffmpeg
+  ;;
+  chbuild)
+    setup_build_version
   ;;
   *)
     usage
