@@ -16,6 +16,7 @@ Compilation is based on [FFmpeg wiki compilation guide](https://trac.ffmpeg.org/
 * [libopus](http://www.opus-codec.org/downloads/)
 * [libvpx](https://github.com/webmproject/libvpx/)
 * [libsrt](https://github.com/Haivision/srt)
+* [librist](https://code.videolan.org/rist/librist)
 * [libvmaf](https://github.com/Netflix/vmaf)
 * [libaom](https://aomedia.googlesource.com/aom/)
 * [libdav1d](https://code.videolan.org/videolan/dav1d/)

@@ -52,6 +52,7 @@ do_configure()
     --enable-libx264 \
     --enable-libx265 \
     --enable-libsrt \
+    --enable-librist \
     --enable-libvmaf \
     --enable-libaom \
     --enable-libdav1d \
