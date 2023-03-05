@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libaom
-VERSION=3.4.0
+VERSION=3.6.0
 
 do_download()
 {

@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=libdav1d
-VERSION=1.0.0
+VERSION=1.1.0
 
 do_download()
 {

@@ -5,7 +5,7 @@ __DIR__=$(dirname "${__FILE__}")
 . $__DIR__/common.inc
 
 NAME=nasm
-VERSION=2.15.05
+VERSION=2.16.01
 
 do_download()
 {
